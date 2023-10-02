@@ -1,0 +1,27 @@
+
+global:
+  scrape_interval: 15s
+      
+scrape_configs: 
+  - job_name: 'prometheus_container' 
+    # metrics_path defaults to '/metrics'
+    scrape_interval: 5s 
+    static_configs: 
+      - targets: ['localhost:9090']
+        
+  - job_name: 'cadvisor-localhost_container'
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['192.168.10.191:8080']
+        labels:
+          group: 'cadvisor'
+          
+  - job_name: 'cadvisor-node_190' # other docker host
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['192.168.10.190:8080']
+        labels:
+          group: 'cadvisor'
+
